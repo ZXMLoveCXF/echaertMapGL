@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>MoonEchartGL</title>
+		<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="js/echarts.js"></script>
+		<script type="text/javascript" src="vendors/echarts/map/js/world.js"></script>
+		<script type="text/javascript" src="js/echarts-gl.js"></script>
+		<style>
+			#main {
+				width: 100%;
+				height: 100vh;
+			}
+			
+			* {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="main"></div>
+	</body>
+	<script>
+		$(function() {
+			var myChart = echarts.init(document.getElementById('main'));
+
+			option = {
+				globe: {
+					baseTexture: 'data-gl/asset/moon-base.jpg',
+					heightTexture: 'data-gl/asset/moon-bump.jpg',
+
+					displacementScale: 0.05,
+					displacementQuality: 'medium',
+
+					environment: 'data-gl/asset/starfield.jpg',
+
+					shading: 'realistic',
+					realisticMaterial: {
+						roughness: 0.8,
+						metalness: 0
+					},
+
+					postEffect: {
+						enable: true,
+						SSAO: {
+							enable: true,
+							radius: 2,
+							intensity: 1,
+							quality: 'high'
+						}
+					},
+					temporalSuperSampling: {
+						enable: true
+					},
+					light: {
+						ambient: {
+							intensity: 0
+						},
+						main: {
+							intensity: 2,
+							shadow: true
+						},
+						ambientCubemap: {
+							texture: 'data-gl/asset/pisa.hdr',
+							exposure: 0,
+							diffuseIntensity: 0.02
+						}
+					},
+					viewControl: {
+						autoRotate: false
+					}
+				},
+				series: []
+			};
+			myChart.setOption(option);
+		})
+	</script>
+
+</html>

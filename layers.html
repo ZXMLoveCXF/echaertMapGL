@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>LayersEchartGL</title>
+		<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="js/echarts.js"></script>
+		<script type="text/javascript" src="vendors/echarts/map/js/world.js"></script>
+		<script type="text/javascript" src="js/echarts-gl.min.js"></script>
+		<style>
+			#main {
+				width: 100%;
+				height: 100vh;
+			}
+			
+			* {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="main"></div>
+	</body>
+	<script>
+		$(function() {
+			var myChart = echarts.init(document.getElementById('main'));
+
+			option = {
+				backgroundColor: '#000',
+				globe: {
+					baseTexture: 'data-gl/asset/earth.jpg',
+					heightTexture: 'data-gl/asset/bathymetry_bw_composite_4k.jpg',
+
+					displacementScale: 0.1,
+
+					shading: 'lambert',
+
+					environment: 'data-gl/asset/starfield.jpg',
+
+					light: {
+						ambient: {
+							intensity: 0.1
+						},
+						main: {
+							intensity: 1.5
+						}
+					},
+
+					layers: [{
+						type: 'blend',
+						blendTo: 'emission',
+						texture: 'data-gl/asset/night.jpg'
+					}, {
+						type: 'overlay',
+						texture: 'data-gl/asset/clouds.png',
+						shading: 'lambert',
+						distance: 5
+					}]
+				},
+				series: []
+			};
+			myChart.setOption(option);
+		})
+	</script>
+
+</html>
